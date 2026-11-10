@@ -1,0 +1,21 @@
+[project]
+name = "python-flet-test"
+version = "0.1.0"
+description = "Native SchulApp mit Python und Flet"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flet>=1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "mypy>=1.0",
+    "ruff>=0.1.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.9",
+]

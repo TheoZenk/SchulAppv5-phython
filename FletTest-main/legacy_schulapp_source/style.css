@@ -1,0 +1,2144 @@
+:root{--bg:#101311;--surface:#191d1a;--surface-2:#222823;--surface-3:#2b332d;--text:#f1f3ed;--muted:#89958b;--line:#303932;--green:#b9e89b;--accent:#d9ffb2;--danger:#ff6b63;--radius:18px}
+*{box-sizing:border-box}html,body{min-height:100%;background:var(--bg)}body{margin:0;padding-bottom:92px;color:var(--text);font-family:"Avenir Next","Trebuchet MS",sans-serif;-webkit-font-smoothing:antialiased}.topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,calc((100% - 560px)/2));border-bottom:1px solid var(--line);background:rgba(16,19,17,.9);backdrop-filter:blur(18px);position:sticky;top:0;z-index:3}.brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:-.04em;font-size:19px}.brand-mark{display:grid;place-items:center;width:32px;height:32px;border-radius:11px;background:var(--green);color:#152018;font:700 18px Georgia,serif}.container{width:100%;max-width:560px;margin:0 auto;padding:26px 18px 28px}.screen-title{display:flex;align-items:center;justify-content:space-between;margin:4px 0 26px}.title-actions{display:flex;gap:8px}.eyebrow{margin:0 0 8px;color:var(--green);font-size:10px;font-weight:800;letter-spacing:.15em}.screen-title h1{margin:0;font:400 38px/1 Georgia,serif;letter-spacing:-.05em}.icon-btn{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:13px;background:var(--surface);color:var(--text);font:20px sans-serif;cursor:pointer}.icon-btn:hover{background:var(--surface-3);color:var(--green)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:14px}.section-heading{display:flex;justify-content:space-between;align-items:start;margin-bottom:20px}.section-heading h2{margin:0;font:400 27px/1 Georgia,serif;letter-spacing:-.04em}.section-number{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.1em}.subjects-list{display:grid;gap:8px}.subject-card{position:relative;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:3px 14px;width:100%;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);color:var(--text);text-align:left;cursor:pointer;transition:transform .18s,background .18s}.subject-card:hover{transform:translateY(-2px);background:var(--surface-3)}.subject-name{font-weight:700}.subject-edit{position:absolute;top:10px;right:72px;border:0;background:transparent;color:var(--muted);cursor:pointer}.subject-meta{grid-column:1;color:var(--muted);font-size:12px}.subject-meta b{float:right;margin-left:8px;color:var(--green);font-size:18px;line-height:12px}.grade-dots{display:flex;gap:5px;align-items:center;min-height:28px}.note-circle{grid-column:2;grid-row:1 / span 2;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;font-weight:800;font-size:17px}.note-1{background:#b9e89b;color:#142218}.note-2{background:#d4e98e;color:#233019}.note-3{background:#f0dc78;color:#392f0b}.note-4{background:#f4ad61;color:#42200e}.note-5{background:#ee8064;color:#40120e}.note-6{background:#ed625f;color:#fff}.note-circle.empty{background:var(--surface-3);color:var(--muted);font-size:20px}.mini-note{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;font-size:11px}.mini-note.is-school{width:30px;height:30px;box-shadow:0 0 0 2px var(--text)}.card-soft{background:var(--surface-2);padding:16px;border-radius:14px;margin-top:16px}.result{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.result strong{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.result span{display:block;margin-top:7px;color:var(--green);font:22px Georgia,serif}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.row>*:not(.btn){flex:1;min-width:130px}.small-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}input,select,textarea{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--text);font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--green)}textarea{width:100%;min-height:130px;resize:vertical}.btn{border:0;border-radius:12px;padding:12px 16px;background:var(--green);color:#162119;font:inherit;font-weight:800;cursor:pointer}.btn:hover{filter:brightness(1.08)}.btn.ghost{padding:7px 10px;background:transparent;border:1px solid var(--line);color:var(--muted);font-size:12px}.btn.ghost:hover{color:var(--text);background:var(--surface-3)}.full-btn{width:100%;margin-top:16px}.list{margin-top:12px}.list p{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:8px 0;padding:11px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}.detail-grade small{display:block;margin:5px 0 0 36px;color:var(--muted)}.note-info{margin-top:10px;min-height:70px}.note-info-btn{margin-top:10px}.empty-state{color:var(--muted);text-align:center;padding:20px}.hidden{display:none!important}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:4;display:flex;justify-content:center;gap:4px;height:82px;padding:10px max(12px,calc((100% - 560px)/2));border-top:1px solid var(--line);background:rgba(25,29,26,.94);backdrop-filter:blur(18px)}.nav-item{flex:1;max-width:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:0;border-radius:14px;background:transparent;color:var(--muted);font:11px inherit;cursor:pointer}.nav-icon{font-size:22px;line-height:20px}.nav-item.active{background:var(--surface-3);color:var(--green)}
+.modal{position:fixed;inset:0;z-index:8;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.7);padding:12px}.modal-card{width:min(100%,560px);max-height:90vh;overflow:auto;padding:22px;border:1px solid var(--line);border-radius:24px 24px 14px 14px;background:var(--surface)}.modal-title{display:flex;justify-content:space-between;align-items:start;margin-bottom:20px}.modal-title h3{margin:0;font:400 28px Georgia,serif}.grade-picker{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px}.grade-option{width:100%;aspect-ratio:1;border:0;border-radius:50%;font-size:18px;font-weight:800;cursor:pointer;opacity:.75}.grade-option.selected{outline:3px solid var(--text);outline-offset:3px;opacity:1}.range-label{display:grid;gap:10px;color:var(--muted);font-size:13px}.range-label strong{color:var(--green);font-size:16px}.range-label input{padding:0;accent-color:var(--green)}.settings-hint{color:var(--muted);font-size:13px;margin-top:-8px}.category-weights{display:grid;gap:8px}.category-weight{display:grid;grid-template-columns:1fr 90px 16px;align-items:center;gap:8px;color:var(--text);font-size:13px}.category-weight input{width:90px;padding:9px}.category-weight small{color:var(--green);font-size:14px}.add-category-row{display:flex;gap:8px;margin-top:16px}.add-category-row input{flex:1;min-width:0}.toggle-row{display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:12px;border:1px solid var(--line);border-radius:12px;color:var(--text);cursor:pointer}.toggle-row input{margin-top:3px;accent-color:var(--green)}.toggle-row span{display:grid;gap:4px}.toggle-row small{color:var(--muted);font-size:11px;line-height:1.4}.subject-options{display:grid;gap:7px;max-height:350px;overflow:auto}.subject-option{display:flex;justify-content:space-between;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--text);font:inherit;text-align:left;cursor:pointer}.subject-option span{color:var(--green);font-size:20px}.timetable{width:100%;border-collapse:separate;border-spacing:3px;margin-top:14px}.timetable td,.timetable th{padding:12px 4px;text-align:center}.timetable th{color:var(--muted);font-size:11px}.timetable td{height:52px;border-radius:9px;background:var(--surface-2);color:var(--green);font-size:11px;cursor:pointer}.timetable td:hover{background:var(--surface-3)}
+html{color-scheme:dark;scrollbar-color:var(--surface-3) var(--bg);scrollbar-width:thin}::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--surface-3);border:2px solid var(--bg);border-radius:10px}.delete-subject-btn{width:100%;margin-top:18px;padding:11px;border:1px solid rgba(255,107,99,.35);border-radius:12px;background:transparent;color:var(--danger);font:inherit;font-weight:700;cursor:pointer}.delete-subject-btn:hover{background:rgba(255,107,99,.1)}.mini-note.is-school{box-shadow:0 0 0 2px var(--green),0 0 0 4px var(--surface-2)}
+@media(max-width:400px){.container{padding-left:12px;padding-right:12px}.screen-title h1{font-size:34px}.result{grid-template-columns:1fr}.grade-picker{gap:5px}.grade-option{font-size:15px}}
+.topbar-actions{display:flex;gap:8px}.overall-average{display:flex;align-items:center;justify-content:space-between;padding:4px 0 20px}.overall-average h2{margin:0 0 8px;font:400 27px/1 Georgia,serif;letter-spacing:-.04em}.overall-circle{display:grid;place-items:center;width:74px;height:74px;border:2px solid var(--green);border-radius:50%;color:var(--green);font:400 25px Georgia,serif}.settings-label{margin:4px 0 10px;color:var(--text);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}.theme-options{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.theme-option{display:grid;justify-items:center;gap:5px;padding:8px 3px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--muted);font:10px inherit;cursor:pointer}.theme-option span{width:22px;height:22px;border-radius:50%;background:var(--theme-swatch)}.theme-option.selected{border-color:var(--green);color:var(--text)}.reset-theme-btn{margin-top:10px}.settings-divider{height:1px;margin:20px 0;border-top:1px solid var(--line)}.decimal-setting{display:grid;gap:8px;color:var(--muted);font-size:12px;margin-bottom:18px}.decimal-setting select{width:100%}.homework-timetable-options{display:grid;gap:7px;max-height:55vh;overflow:auto}.homework-timetable-option{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--text);font:inherit;text-align:left;cursor:pointer}.homework-timetable-option:hover{background:var(--surface-3);border-color:var(--green)}.homework-timetable-option span{color:var(--muted);font-size:12px}.homework-timetable-option strong{color:var(--green)}
+.grade-category{margin-top:16px}.grade-category h4{margin:0 0 7px;color:var(--green);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.grade-category:first-child{margin-top:0}.grade-actions{display:flex;gap:5px;flex-shrink:0}.grade-actions .btn{font-size:11px}.detail-grade small.grade-info{margin-left:8px}.detail-grade>span:first-child{min-width:0;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.note-circle,.overall-circle{line-height:1;text-align:center;align-self:center;justify-self:end}.timetable{font-family:"Avenir Next","Trebuchet MS",sans-serif}.timetable th{font-weight:800;letter-spacing:.04em}.timetable td{font-weight:700}.cell-label{font-weight:800;text-align:center;text-transform:none}.timetable-hint{margin:8px 0 0;color:var(--green);font-size:12px;line-height:1.4}.homework-timetable-grid{font-family:"Avenir Next","Trebuchet MS",sans-serif}
+.timetable{table-layout:fixed}.timetable th:first-child{width:58px}.timetable td{height:58px;width:20%;padding:4px;overflow:hidden;vertical-align:middle}.cell-label{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:1.15}.cell-label.small{font-size:10px}.cell-label.compact{font-size:8px;letter-spacing:0}.homework-timetable-grid{width:100%;overflow-x:auto}.homework-timetable-table{display:grid;grid-template-columns:38px repeat(5,minmax(48px,1fr));gap:3px;min-width:330px}.homework-corner,.homework-day,.homework-period,.homework-cell{min-height:34px}.homework-day,.homework-period{display:grid;place-items:center;color:var(--muted);font-size:10px;font-weight:800}.homework-cell{display:grid;place-items:center;min-width:0;padding:4px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--muted);font:inherit;cursor:pointer;overflow:hidden}.homework-cell.filled{background:var(--surface-3);border-color:var(--green);color:var(--green)}.homework-cell span{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;text-align:center}.homework-cell:hover{filter:brightness(1.15)}
+.grade-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface-2);
+    margin-bottom: 8px;
+}
+
+.grade-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.grade-actions .btn {
+    font-size: 12px;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.grade-actions .btn:hover {
+    background: var(--green);
+    color: white;
+}
+
+.category-grades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.grade-item {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 58px;
+    cursor: pointer;
+}
+
+.grade-item:hover,
+.grade-item.expanded {
+    border-color: var(--green);
+    background: var(--surface-3);
+}
+
+.grade-item small {
+    max-width: 130px;
+    overflow: hidden;
+    color: var(--muted);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.grade-actions {
+    width: 100%;
+    gap: 5px;
+}
+
+.no-grades {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Notenübersicht: keine äußeren Fach-Kästen, Fokus auf dem Notenkreis */
+.subjects-list {
+    gap: 4px;
+}
+
+.subject-card {
+    min-height: 78px;
+    padding: 10px 4px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.subject-card:last-child {
+    border-bottom: 0;
+}
+
+.subject-card:hover {
+    transform: none;
+    background: transparent;
+}
+
+.subject-edit {
+    right: 76px;
+}
+
+.note-circle {
+    width: 62px;
+    height: 62px;
+    border: 3px solid rgba(255,255,255,.18);
+    box-shadow: 0 5px 14px rgba(0,0,0,.18);
+    font-size: 20px;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.subject-card:hover .note-circle {
+    transform: scale(1.06);
+    box-shadow: 0 7px 18px rgba(0,0,0,.25);
+}
+
+/* Helle Notenfarben, unabhängig vom gewählten App-Modul oder Theme */
+.note-circle.note-1,
+.mini-note.note-1,
+.grade-option.note-1 { background: #d9f7c7; color: #254126; }
+.note-circle.note-2,
+.mini-note.note-2,
+.grade-option.note-2 { background: #e6f5ba; color: #3b481d; }
+.note-circle.note-3,
+.mini-note.note-3,
+.grade-option.note-3 { background: #fff0a8; color: #554813; }
+.note-circle.note-4,
+.mini-note.note-4,
+.grade-option.note-4 { background: #ffd09b; color: #603719; }
+.note-circle.note-5,
+.mini-note.note-5,
+.grade-option.note-5 { background: #ffb09b; color: #64251d; }
+.note-circle.note-6,
+.mini-note.note-6,
+.grade-option.note-6 { background: #ff9c9c; color: #641c1c; }
+
+/* Kräftige, schattierte Notenkreise */
+.note-circle.note-1,
+.mini-note.note-1,
+.grade-option.note-1 { background:linear-gradient(145deg,#ecffd9 0%,#9bdd67 55%,#55a83f 100%);color:#173b1b; }
+.note-circle.note-2,
+.mini-note.note-2,
+.grade-option.note-2 { background:linear-gradient(145deg,#f5ffd2 0%,#d7ed67 55%,#9dbd32 100%);color:#364209; }
+.note-circle.note-3,
+.mini-note.note-3,
+.grade-option.note-3 { background:linear-gradient(145deg,#fffbd0 0%,#ffe66b 55%,#d2aa20 100%);color:#4c3900; }
+.note-circle.note-4,
+.mini-note.note-4,
+.grade-option.note-4 { background:linear-gradient(145deg,#ffe7b8 0%,#ffb45e 55%,#d87822 100%);color:#542300; }
+.note-circle.note-5,
+.mini-note.note-5,
+.grade-option.note-5 { background:linear-gradient(145deg,#ffd0b9 0%,#ff8061 55%,#c7463d 100%);color:#54130f; }
+.note-circle.note-6,
+.mini-note.note-6,
+.grade-option.note-6 { background:linear-gradient(145deg,#ffc1c5 0%,#f56670 55%,#a9283e 100%);color:#fff; }
+
+.note-circle {
+    border-color:rgba(255,255,255,.48);
+    box-shadow:inset 5px 5px 10px rgba(255,255,255,.35),inset -7px -8px 12px rgba(70,20,10,.2),0 7px 16px rgba(0,0,0,.3);
+}
+
+.mini-note {
+    box-shadow:inset 3px 3px 5px rgba(255,255,255,.4),inset -3px -4px 6px rgba(70,20,10,.2),0 3px 7px rgba(0,0,0,.28);
+}
+
+.grade-option {
+    box-shadow:inset 4px 4px 7px rgba(255,255,255,.42),inset -5px -6px 9px rgba(70,20,10,.2),0 4px 9px rgba(0,0,0,.25);
+}
+
+/* Im Fach-Modal: nur die Kreise, keine Kästen um die Noten */
+.category-grades {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-start;
+    gap:12px;
+}
+
+.grade-item,
+.grade-item:hover,
+.grade-item.expanded {
+    min-width:46px;
+    margin:0;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+}
+
+.grade-item > .mini-note {
+    width:42px;
+    height:42px;
+    font-size:15px;
+}
+
+.grade-item small { display:none; }
+.grade-item.expanded small { display:block;max-width:150px;margin-top:4px; }
+.grade-item .grade-actions { width:max-content;margin-top:4px; }
+
+/* Neue Naturfarben für die Noten */
+.note-circle.note-1,
+.mini-note.note-1,
+.grade-option.note-1 {
+    background:linear-gradient(145deg,#d9f7b0 0%,#73c95a 48%,#287a43 100%);
+    color:#123c23;
+}
+.note-circle.note-2,
+.mini-note.note-2,
+.grade-option.note-2 {
+    background:linear-gradient(145deg,#e5f4a1 0%,#b8d94e 48%,#6d9f2d 100%);
+    color:#30430e;
+}
+.note-circle.note-3,
+.mini-note.note-3,
+.grade-option.note-3 {
+    background:linear-gradient(145deg,#fff2a8 0%,#e4c84f 48%,#b17b1e 100%);
+    color:#4f3905;
+}
+.note-circle.note-4,
+.mini-note.note-4,
+.grade-option.note-4 {
+    background:linear-gradient(145deg,#ffd39c 0%,#ee984b 48%,#bd5b26 100%);
+    color:#55220c;
+}
+.note-circle.note-5,
+.mini-note.note-5,
+.grade-option.note-5 {
+    background:linear-gradient(145deg,#ffc0a7 0%,#ed735c 48%,#b83c3d 100%);
+    color:#571814;
+}
+.note-circle.note-6,
+.mini-note.note-6,
+.grade-option.note-6 {
+    background:linear-gradient(145deg,#ffb1a6 0%,#e94f50 48%,#941c32 100%);
+    color:#fff;
+}
+
+/* Schönes, eigenes Abzeichen für Schulaufgaben */
+.mini-note.is-school {
+    width:36px;
+    height:30px;
+    border-radius:10px;
+    border:2px solid #ffe7a0;
+    background:linear-gradient(145deg,#fff1b0 0%,#e9b84d 52%,#a96a1e 100%) !important;
+    color:#57320a !important;
+    box-shadow:inset 3px 3px 5px rgba(255,255,255,.55),inset -3px -4px 6px rgba(95,45,0,.2),0 3px 8px rgba(82,46,7,.35);
+}
+
+/* Ruhiger und größerer Hover-Zustand beim Bearbeiten */
+.grade-item {
+    min-width:52px;
+    transition:transform .18s ease;
+}
+.grade-item > .mini-note {
+    transition:transform .18s ease,filter .18s ease,box-shadow .18s ease;
+}
+.grade-item:hover,
+.grade-item:focus-visible {
+    outline:0;
+    transform:translateY(-3px);
+}
+.grade-item:hover > .mini-note,
+.grade-item:focus-visible > .mini-note,
+.grade-item.expanded > .mini-note {
+    transform:scale(1.12);
+    filter:brightness(1.08) saturate(1.12);
+    box-shadow:inset 3px 3px 5px rgba(255,255,255,.48),inset -4px -5px 7px rgba(60,20,10,.22),0 6px 14px rgba(0,0,0,.34);
+}
+.grade-item .grade-actions {
+    padding:5px;
+    border:1px solid rgba(185,232,155,.35);
+    border-radius:10px;
+    background:var(--surface-2);
+    box-shadow:0 5px 12px rgba(0,0,0,.2);
+}
+.grade-item .grade-actions .btn {
+    min-height:30px;
+    padding:6px 9px;
+    border-radius:8px;
+}
+
+/* Exakte Farbposition: 1 = sattes Grün, 6 = sattes Rot, auch bei Zehntelnoten */
+.note-circle,
+.mini-note,
+.grade-option {
+    background:linear-gradient(145deg,
+        hsl(calc(var(--note-hue,100) + 13) 92% 72%) 0%,
+        hsl(var(--note-hue,100) 86% 51%) 52%,
+        hsl(calc(var(--note-hue,100) - 9) 82% 34%) 100%) !important;
+}
+
+/* Der Schatten liegt unter dem Kreis und nicht auf seiner Oberfläche */
+.note-circle {
+    box-shadow:0 8px 0 rgba(37,55,35,.34),0 14px 22px rgba(0,0,0,.32);
+}
+.mini-note {
+    box-shadow:0 4px 0 rgba(37,55,35,.3),0 7px 12px rgba(0,0,0,.28);
+}
+.grade-option {
+    box-shadow:0 5px 0 rgba(37,55,35,.3),0 9px 14px rgba(0,0,0,.28);
+}
+
+/* Schulaufgaben bleiben rund und sind nur leicht größer */
+.mini-note.is-school {
+    width:28px;
+    height:28px;
+    border:0;
+    border-radius:50%;
+    background:linear-gradient(145deg,
+        hsl(calc(var(--note-hue,100) + 13) 92% 72%) 0%,
+        hsl(var(--note-hue,100) 86% 51%) 52%,
+        hsl(calc(var(--note-hue,100) - 9) 82% 34%) 100%) !important;
+    color:inherit !important;
+    box-shadow:0 5px 0 rgba(37,55,35,.3),0 8px 14px rgba(0,0,0,.28);
+}
+.grade-item > .mini-note.is-school {
+    width:46px;
+    height:46px;
+}
+
+.note-circle.empty {
+    background:var(--surface-3) !important;
+    color:var(--muted);
+    box-shadow:none;
+}
+
+/* Klare, flache Farben ohne Schattierung innerhalb der Kreise */
+.note-circle,
+.mini-note,
+.grade-option {
+    background:hsl(var(--note-hue,100) 84% 48%) !important;
+    border:0;
+    text-shadow:0 1px 1px rgba(0,0,0,.18);
+}
+
+.note-circle.note-1,
+.mini-note.note-1,
+.grade-option.note-1 { background:#43a94f !important; color:#fff !important; }
+.note-circle.note-2,
+.mini-note.note-2,
+.grade-option.note-2 { background:#8fbd3b !important; color:#172b0b !important; }
+.note-circle.note-3,
+.mini-note.note-3,
+.grade-option.note-3 { background:#d8b52d !important; color:#302400 !important; }
+.note-circle.note-4,
+.mini-note.note-4,
+.grade-option.note-4 { background:#e68432 !important; color:#351507 !important; }
+.note-circle.note-5,
+.mini-note.note-5,
+.grade-option.note-5 { background:#df574d !important; color:#fff !important; }
+.note-circle.note-6,
+.mini-note.note-6,
+.grade-option.note-6 { background:#c9283d !important; color:#fff !important; }
+
+/* Nur der Fach-Durchschnitt bekommt den unauffälligen Leuchteffekt außen */
+.note-circle {
+    font-weight:900;
+    text-shadow:0 1px 2px rgba(0,0,0,.3);
+    box-shadow:0 0 0 2px rgba(255,255,255,.22),
+               0 0 11px hsl(var(--note-hue,100) 85% 55% / .42),
+               0 5px 9px rgba(0,0,0,.25);
+}
+
+.subject-card:hover .note-circle {
+    box-shadow:0 0 0 2px rgba(255,255,255,.3),
+               0 0 15px hsl(var(--note-hue,100) 85% 55% / .52),
+               0 7px 12px rgba(0,0,0,.3);
+}
+
+.note-circle.empty {
+    background:var(--surface-3) !important;
+    box-shadow:none;
+    text-shadow:none;
+}
+
+/* Schulaufgaben: rund, aber deutlich erkennbar */
+.mini-note.is-school {
+    width:31px;
+    height:31px;
+    border:3px solid rgba(255,255,255,.72);
+    font-size:12px;
+    font-weight:900;
+    box-shadow:0 0 0 1px rgba(255,210,80,.8),0 4px 8px rgba(0,0,0,.3);
+}
+
+.grade-item > .mini-note.is-school {
+    width:48px;
+    height:48px;
+    font-size:16px;
+}
+
+/* Halbjahres-Navigation */
+.term-tabs {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    gap:6px;
+    margin:0 0 20px;
+    padding:4px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--surface-2);
+}
+.term-tab {
+    flex:0 0 auto;
+    min-width:92px;
+    min-height:38px;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+    color:var(--muted);
+    font:inherit;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+}
+.term-tab:hover,
+.term-tab.active {
+    background:var(--surface-3);
+    color:var(--green);
+}
+
+.subject-name {
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.subject-symbol,
+.subject-option-icon {
+    display:grid;
+    place-items:center;
+    flex:none;
+    width:30px;
+    height:30px;
+    border-radius:10px;
+    background:var(--surface-3);
+    font-size:17px;
+}
+.subject-option-main {
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.subject-option-icon {
+    width:34px;
+    height:34px;
+    background:var(--surface-3);
+}
+.custom-subject-row {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:16px;
+}
+.custom-subject-row input {
+    min-width:0;
+    flex:1;
+}
+.subject-icon-picker {
+    position:relative;
+    display:grid;
+    place-items:center;
+    width:44px;
+    height:44px;
+    padding:0;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--surface-2);
+    font-size:21px;
+    cursor:pointer;
+}
+.subject-icon-picker span {
+    position:absolute;
+    right:-4px;
+    bottom:-4px;
+    display:grid;
+    place-items:center;
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:var(--green);
+    color:#142218;
+    font-size:10px;
+}
+.subject-option {
+    align-items:center;
+}
+
+.overall-average {
+    align-items:center;
+    justify-content:center;
+    gap:28px;
+    text-align:center;
+}
+.overall-average > div {
+    display:grid;
+    justify-items:center;
+}
+.overall-circle {
+    flex:none;
+    border:2px solid var(--green);
+    box-shadow:0 0 0 2px rgba(255,255,255,.16),0 0 18px rgba(185,232,155,.3);
+}
+
+@media(max-width:400px){
+    .term-tab { font-size:10px; padding:0 2px; }
+    .overall-average { gap:14px; }
+}
+
+/* Dezente, einfarbige Fachsymbole */
+.subject-symbol,
+.subject-option-icon,
+.timetable-subject-icon,
+.subject-icon-picker,
+.icon-option {
+    color:#f1f3ed;
+    filter:grayscale(1);
+}
+.subject-symbol svg,
+.subject-option-icon svg,
+.timetable-subject-icon svg,
+.subject-icon-picker svg,
+.icon-option svg {
+    display:block;
+    width:22px;
+    height:22px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+.subject-symbol svg {
+    width:28px;
+    height:28px;
+}
+.subject-symbol {
+    background:transparent;
+    font-size:26px;
+}
+.subject-option-icon {
+    background:transparent;
+    font-size:21px;
+}
+.subject-symbol {
+    display:grid;
+    place-items:center;
+    align-self:center;
+    width:42px;
+    height:36px;
+}
+.icon-options {
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:8px;
+    margin-top:14px;
+    padding:10px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--surface-2);
+}
+.icon-option {
+    display:grid;
+    place-items:center;
+    width:100%;
+    aspect-ratio:1;
+    border:1px solid transparent;
+    border-radius:10px;
+    background:transparent;
+    color:var(--text);
+    font-size:23px;
+    cursor:pointer;
+}
+.icon-option:hover,
+.icon-option.selected {
+    border-color:var(--green);
+    background:var(--surface-3);
+    color:#fff;
+}
+.subject-icon-picker svg {
+    width:24px;
+    height:24px;
+}
+.timetable td .cell-label {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+}
+.timetable-subject-icon {
+    flex:none;
+    color:var(--text);
+    font-size:15px;
+}
+.timetable td .cell-label > span:last-child {
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+/* Fachzeilen: das Symbol steht mittig ueber die gesamte Zeilenhoehe. */
+.subject-card {
+    display:grid;
+    grid-template-columns:36px minmax(0,1fr) auto;
+    grid-template-rows:auto auto;
+    column-gap:10px;
+    align-items:center;
+    min-height:78px;
+}
+.subject-symbol {
+    grid-column:1;
+    grid-row:1 / span 2;
+    align-self:stretch;
+    display:grid;
+    place-items:center;
+    width:36px;
+    height:auto;
+}
+.subject-name {
+    grid-column:2;
+    grid-row:1;
+    min-width:0;
+    align-self:end;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.subject-meta {
+    grid-column:2;
+    grid-row:2;
+    min-width:0;
+    align-self:start;
+}
+.subject-edit {
+    grid-column:2;
+    grid-row:1;
+    position:static;
+    justify-self:end;
+    margin-right:2px;
+}
+.note-circle {
+    grid-column:3;
+    grid-row:1 / span 2;
+}
+
+/* Stundenplan: jede Kachel besitzt einen festen, nicht ueberlaufenden Inhalt. */
+.timetable td {
+    min-width:0;
+    height:58px;
+    padding:3px;
+}
+.timetable td .cell-label {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    min-width:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    line-height:1.05;
+}
+.timetable-subject-icon {
+    display:grid;
+    place-items:center;
+    flex:0 0 auto;
+    width:17px;
+    height:17px;
+}
+.timetable-subject-icon svg {
+    width:15px;
+    height:15px;
+}
+.timetable td .cell-label > span:last-child {
+    display:block;
+    max-width:100%;
+    font-size:clamp(8px,2.2vw,11px);
+    line-height:1.05;
+}
+.timetable td .cell-label.small > span:last-child { font-size:9px; }
+.timetable td .cell-label.compact > span:last-child { font-size:8px; }
+
+/* Die Reiter erhalten ihren eigenen Abstand, damit die Schnittwerte nicht hineinlaufen. */
+.result.card-soft + .term-tabs {
+    margin-top:22px;
+    clear:both;
+}
+.term-tabs {
+    width:100%;
+    padding:6px;
+}
+.term-tab {
+    flex:0 0 92px;
+    min-width:92px;
+}
+
+/* Die Symbolpalette bleibt geschlossen und wird nur ueber den Stift geoeffnet. */
+.icon-options {
+    display:none;
+}
+.icon-options.open {
+    display:grid;
+}
+.subject-icon-picker {
+    width:38px;
+    height:38px;
+}
+
+/* Groesserer Stundenplan mit Platz fuer Fach, Raum und Lehrer. */
+#stundenplan .card {
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#timetableWrap {
+    width:100%;
+    overflow-x:auto;
+}
+#timetableWrap .timetable {
+    min-width:0;
+    width:100%;
+    font-size:13px;
+}
+#timetableWrap .timetable td {
+    height:86px;
+    padding:6px;
+}
+#timetableWrap .cell-label {
+    gap:4px;
+}
+#timetableWrap .timetable-subject-name {
+    max-width:100%;
+    font-size:12px;
+}
+#timetableWrap .cell-label.small .timetable-subject-name,
+#timetableWrap .cell-label.compact .timetable-subject-name {
+    font-size:10px;
+}
+#timetableWrap .cell-label small {
+    display:block;
+    max-width:100%;
+    overflow:hidden;
+    color:var(--muted);
+    font-size:9px;
+    line-height:1.05;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.timetable-details {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+}
+@media(max-width:600px){
+    #timetableWrap .timetable { min-width:0; }
+    .timetable-details { grid-template-columns:1fr; }
+}
+
+/* Die Stundenplanansicht nutzt den breiteren Arbeitsbereich, ohne die Seite horizontal zu verschieben. */
+.container:has(#stundenplan:not(.hidden)) {
+    max-width:980px;
+}
+.timetable-controls {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:10px;
+}
+.timetable-controls label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--muted);
+    font-size:13px;
+}
+.timetable-controls input {
+    width:72px;
+    padding:9px;
+}
+.danger-btn {
+    border-color:rgba(255,107,99,.4) !important;
+    color:var(--danger) !important;
+}
+.danger-btn:hover {
+    background:rgba(255,107,99,.12) !important;
+}
+.timetable-import-status {
+    margin:4px 0 12px;
+    padding:9px 11px;
+    border-left:3px solid var(--green);
+    background:rgba(185,232,155,.08);
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.35;
+}
+.timetable-import-status.error {
+    border-left-color:var(--danger);
+    background:rgba(255,107,99,.08);
+    color:#ffb0aa;
+}
+.timetable th:first-child {
+    width:76px;
+}
+.timetable td {
+    width:auto;
+}
+
+/* Finale Darstellung: schwarze Zahlen, dünne runde Schulaufgaben-Markierung */
+.note-circle,
+.mini-note,
+.grade-option,
+.note-circle.note-1,
+.note-circle.note-2,
+.note-circle.note-3,
+.note-circle.note-4,
+.note-circle.note-5,
+.note-circle.note-6,
+.mini-note.note-1,
+.mini-note.note-2,
+.mini-note.note-3,
+.mini-note.note-4,
+.mini-note.note-5,
+.mini-note.note-6,
+.grade-option.note-1,
+.grade-option.note-2,
+.grade-option.note-3,
+.grade-option.note-4,
+.grade-option.note-5,
+.grade-option.note-6 {
+    color:#111 !important;
+    text-shadow:none;
+}
+
+.mini-note.is-school,
+.grade-item > .mini-note.is-school {
+    border:1px solid rgba(30,45,25,.48);
+    border-radius:50%;
+    outline:0;
+    color:#111 !important;
+}
+
+/* Stärkerer, aber sauberer Leuchteffekt nur am Fach-Durchschnitt */
+.note-circle {
+    box-shadow:0 0 0 2px rgba(255,255,255,.3),
+               0 0 18px hsl(var(--note-hue,100) 90% 58% / .72),
+               0 6px 12px rgba(0,0,0,.3);
+}
+
+.subject-card:hover .note-circle {
+    box-shadow:0 0 0 2px rgba(255,255,255,.38),
+               0 0 24px hsl(var(--note-hue,100) 92% 62% / .86),
+               0 8px 15px rgba(0,0,0,.34);
+}
+
+/* Die vorgegebenen Noten im Eingabefeld leuchten beim Darüberfahren */
+.grade-option {
+    color:#111 !important;
+    transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+    box-shadow:0 0 0 1px rgba(255,255,255,.28),
+               0 0 10px hsl(var(--note-hue,100) 88% 58% / .48),
+               0 4px 8px rgba(0,0,0,.26);
+}
+
+.grade-option:hover,
+.grade-option.selected {
+    color:#111 !important;
+    transform:scale(1.07);
+    filter:saturate(1.16) brightness(1.08);
+    box-shadow:0 0 0 2px rgba(255,255,255,.42),
+               0 0 19px hsl(var(--note-hue,100) 92% 62% / .78),
+               0 6px 11px rgba(0,0,0,.3);
+}
+
+/* Kleine Aktionsschaltflächen, damit nichts aus dem Notenbereich läuft */
+.grade-item .grade-actions {
+    max-width:100%;
+    flex-wrap:wrap;
+    gap:3px;
+    padding:3px;
+}
+
+.grade-item .grade-actions .btn {
+    min-height:24px;
+    max-width:100%;
+    padding:4px 6px;
+    border-radius:7px;
+    font-size:10px;
+    line-height:1.1;
+    white-space:nowrap;
+}
+
+/* Die Farbe wird immer aus dem exakten Notenwert berechnet, nicht aus der gerundeten Note-Klasse. */
+.note-circle,
+.mini-note,
+.grade-option {
+    background:hsl(var(--note-hue,100) 82% 48%) !important;
+}
+
+.mini-note.is-school,
+.grade-item > .mini-note.is-school {
+    background:hsl(var(--note-hue,100) 82% 48%) !important;
+}
+
+/* Eine einzige Farbquelle für alle Notenkreise – inklusive Dezimalnoten. */
+.note-circle:is(.note-1,.note-2,.note-3,.note-4,.note-5,.note-6),
+.mini-note:is(.note-1,.note-2,.note-3,.note-4,.note-5,.note-6),
+.grade-option:is(.note-1,.note-2,.note-3,.note-4,.note-5,.note-6) {
+    background:hsl(var(--note-hue,100) 82% 48%) !important;
+}
+
+/* Keine Rahmen um die berechneten Schnitte. */
+.result.card-soft {
+    border:0;
+    background:transparent;
+    box-shadow:none;
+}
+
+.overall-circle {
+    border:0;
+}
+
+/* Ergebniswerte vollständig ohne Karten- oder Innenrahmen darstellen. */
+.result.card-soft,
+.result.card-soft > div,
+.result.card-soft > div::before,
+.result.card-soft > div::after {
+    border:0 !important;
+    outline:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+}
+
+.result.card-soft {
+    margin-top:20px;
+    padding:16px 0 0;
+}
+
+/* Keine sichtbaren Umrandungen: nur Kreisfarbe und weicher Schatten bleiben. */
+.mini-note.is-school,
+.grade-item > .mini-note.is-school {
+    border:0 !important;
+    outline:0 !important;
+    box-shadow:0 4px 9px rgba(0,0,0,.28) !important;
+}
+
+.note-circle,
+.subject-card:hover .note-circle {
+    border:0 !important;
+    box-shadow:0 0 18px hsl(var(--note-hue,100) 90% 58% / .72),
+               0 6px 12px rgba(0,0,0,.3) !important;
+}
+
+
+/* --- 30: Farbsichere Noten-Glows, Fachgewichtung und Hausaufgaben --- */
+:root { --theme-glow: var(--green); }
+.subject-name { min-width:0; }
+.subject-weight-badge {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-left:7px;
+    padding:3px 7px;
+    border-radius:999px;
+    background:color-mix(in srgb, var(--green) 14%, transparent);
+    border:1px solid color-mix(in srgb, var(--green) 38%, transparent);
+    color:var(--green);
+    font-size:10px;
+    line-height:1;
+    font-weight:900;
+    vertical-align:middle;
+    box-shadow:0 0 9px color-mix(in srgb, var(--green) 18%, transparent);
+}
+.subject-weight-setting { display:grid; gap:10px; margin-top:18px; padding:14px; border:1px solid var(--line); border-radius:14px; background:var(--surface-2); }
+.subject-weight-head { display:flex; justify-content:space-between; gap:12px; align-items:center; font-size:13px; }
+.subject-weight-head strong { color:var(--green); font-size:17px; }
+#subjectWeightRange { width:100%; padding:0; accent-color:var(--green); cursor:pointer; }
+.subject-weight-scale { display:flex; justify-content:space-between; color:var(--muted); font-size:10px; }
+
+/* Notenkreise: Der Glow stammt immer von der Note selbst, nie vom gewählten App-Theme. */
+.note-circle:not(.empty), .mini-note, .grade-option {
+    box-shadow:0 0 10px hsl(var(--note-hue,100) 88% 56% / .28), 0 4px 9px rgba(0,0,0,.22) !important;
+    transition:box-shadow .16s ease, transform .16s ease, filter .16s ease;
+}
+.note-circle:not(.empty):hover, .subject-card:hover .note-circle:not(.empty), .mini-note:hover, .grade-option:hover, .grade-option.selected {
+    box-shadow:0 0 15px hsl(var(--note-hue,100) 90% 60% / .48), 0 5px 10px rgba(0,0,0,.24) !important;
+}
+.mini-note.is-school, .grade-item > .mini-note.is-school {
+    box-shadow:0 0 9px hsl(var(--note-hue,100) 88% 56% / .34), 0 4px 9px rgba(0,0,0,.22) !important;
+    border:0 !important;
+}
+.note-circle.empty, .subject-card:hover .note-circle.empty {
+    --empty-glow: var(--theme-glow);
+    box-shadow:0 0 8px color-mix(in srgb, var(--empty-glow) 28%, transparent), 0 4px 9px rgba(0,0,0,.2) !important;
+    background:var(--surface-3) !important;
+}
+
+.homework-item {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto auto;
+    align-items:center;
+    gap:12px;
+    margin:8px 0;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--surface-2);
+}
+.homework-main { min-width:0; display:grid; gap:3px; }
+.homework-main strong { font-size:12px; color:var(--green); }
+.homework-main span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:13px; }
+.homework-due { min-width:78px; display:grid; justify-items:end; gap:2px; text-align:right; }
+.homework-due b { font-size:11px; color:var(--text); }
+.homework-due small { color:var(--muted); font-size:10px; }
+
+/* Importierte Rasterdaten sind 1-basiert: Stunde 1 bleibt Stunde 1, auch wenn 7 leer ist. */
+.timetable td[data-period="7"] { opacity:.92; }
+.timetable td:hover { border-color:color-mix(in srgb, var(--green) 45%, var(--line)); }
+
+@media(max-width:520px){
+    .homework-item { grid-template-columns:minmax(0,1fr) auto; }
+    .homework-item > .btn { grid-column:2; grid-row:1; }
+    .homework-due { grid-column:1; grid-row:2; justify-items:start; text-align:left; }
+}
+
+/* ===== Stundenplan v40: Wochen, Datum, mobile Lesbarkeit ===== */
+#stundenplan .card {
+    max-width: 1080px;
+}
+.timetable-weekbar {
+    display:grid;
+    grid-template-columns:42px minmax(0,1fr) 42px auto;
+    align-items:center;
+    gap:10px;
+    margin:-4px 0 14px;
+    padding:10px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:var(--surface-2);
+}
+.timetable-week-center {
+    min-width:0;
+    display:grid;
+    gap:3px;
+    text-align:center;
+}
+.timetable-week-center strong {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:15px;
+    color:var(--text);
+}
+.timetable-week-center span {
+    font-size:11px;
+    color:var(--muted);
+}
+.timetable-week-arrow {
+    width:42px;
+    height:42px;
+    font-size:28px;
+}
+.timetable-controls {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:10px;
+}
+.timetable-controls label {
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.timetable-controls input {
+    width:68px;
+    text-align:center;
+}
+.timetable-scroll {
+    width:100%;
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--surface);
+}
+#timetableWrap .timetable {
+    width:100%;
+    min-width:860px;
+    margin:0;
+    border-spacing:2px;
+    table-layout:fixed;
+}
+#timetableWrap .timetable th,
+#timetableWrap .timetable td {
+    min-width:0;
+}
+#timetableWrap .timetable thead th {
+    position:sticky;
+    top:0;
+    z-index:4;
+    padding:10px 8px 9px;
+    background:var(--surface);
+    color:var(--text);
+    border-bottom:1px solid var(--line);
+}
+#timetableWrap .timetable thead th:first-child {
+    left:0;
+    z-index:6;
+    width:72px;
+}
+#timetableWrap .timetable tbody th {
+    position:sticky;
+    left:0;
+    z-index:3;
+    width:72px;
+    padding:8px 5px;
+    background:var(--surface);
+    color:var(--text);
+    border-right:1px solid var(--line);
+    font-size:12px;
+}
+#timetableWrap .timetable td {
+    height:76px;
+    padding:5px 6px;
+    background:var(--surface-2);
+    border-radius:10px;
+    color:var(--text);
+    border:1px solid transparent;
+}
+#timetableWrap .timetable td:hover {
+    background:var(--surface-3);
+}
+.timetable-day-name {
+    font-size:12px;
+    font-weight:800;
+    line-height:1.15;
+}
+.timetable-day-date {
+    margin-top:4px;
+    font-size:10px;
+    color:var(--muted);
+    font-weight:700;
+}
+#timetableWrap .cell-label {
+    gap:5px;
+}
+#timetableWrap .timetable-subject-name {
+    max-width:100%;
+    font-size:14px;
+    line-height:1.08;
+}
+#timetableWrap .timetable-subject-icon {
+    width:18px;
+    height:18px;
+}
+#timetableWrap .timetable-subject-icon svg {
+    width:16px;
+    height:16px;
+}
+#timetableWrap .cell-label small {
+    max-width:100%;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:700;
+    line-height:1.1;
+}
+.timetable-empty {
+    color:var(--muted);
+    opacity:.5;
+    font-size:15px;
+    font-weight:700;
+}
+.timetable-scroll-hint {
+    margin:7px 2px 0;
+    color:var(--muted);
+    font-size:10px;
+    text-align:right;
+}
+
+@media (min-width: 701px) {
+    .timetable-scroll-hint { display:none; }
+    #timetableWrap .timetable { min-width:0; }
+}
+
+@media (max-width: 700px) {
+    #stundenplan .card { padding:14px; }
+    .timetable-weekbar {
+        grid-template-columns:40px minmax(0,1fr) 40px;
+    }
+    .timetable-weekbar .btn.ghost {
+        grid-column:1 / -1;
+        justify-self:center;
+        min-width:94px;
+    }
+    .timetable-controls {
+        align-items:stretch;
+    }
+    .timetable-controls .btn {
+        flex:1 1 100%;
+    }
+    #timetableWrap .timetable {
+        min-width:860px;
+    }
+    #timetableWrap .timetable td {
+        height:84px;
+    }
+    #timetableWrap .timetable thead th,
+    #timetableWrap .timetable tbody th {
+        background:var(--surface);
+    }
+    .timetable-scroll-hint {
+        display:block;
+    }
+}
+
+@media (max-width: 420px) {
+    .timetable-week-center strong {
+        font-size:13px;
+    }
+    .timetable-week-center span {
+        font-size:10px;
+    }
+}
+
+
+/* ===== v43: schneller Import, echte Wochen-Vorlage, mobile Wochenansicht ===== */
+.timetable-grid {
+  display:grid;
+  grid-template-columns:52px repeat(5,minmax(0,1fr));
+  gap:3px;
+  width:100%;
+  margin-top:14px;
+  overflow:hidden;
+}
+.timetable-grid > * { min-width:0; }
+.timetable-grid-header,
+.timetable-grid-period,
+.timetable-grid-cell {
+  min-width:0;
+  border:1px solid var(--line);
+}
+.timetable-grid-header {
+  min-height:58px;
+  display:grid;
+  place-items:center;
+  padding:7px 4px;
+  background:var(--surface);
+  color:var(--text);
+  border-radius:10px;
+  text-align:center;
+}
+.timetable-grid-period {
+  min-height:78px;
+  display:grid;
+  place-items:center;
+  background:var(--surface);
+  color:var(--text);
+  border-radius:10px;
+  font-size:12px;
+  font-weight:900;
+  position:sticky;
+  left:0;
+  z-index:2;
+}
+.timetable-grid-cell {
+  min-height:78px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  padding:6px 4px;
+  border-radius:10px;
+  background:var(--surface-2);
+  color:var(--text);
+  cursor:pointer;
+  transition:background .15s ease,transform .15s ease,border-color .15s ease;
+}
+.timetable-grid-cell:hover {
+  background:var(--surface-3);
+  border-color:color-mix(in srgb,var(--green) 45%,var(--line));
+  transform:translateY(-1px);
+}
+.timetable-grid-cell.is-empty {
+  background:color-mix(in srgb,var(--surface-2) 75%, transparent);
+}
+.timetable-grid-cell.is-assignment {
+  border-color:color-mix(in srgb,var(--assignment-color) 62%,var(--line));
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--assignment-color) 18%,transparent);
+}
+.timetable-grid-day-short,
+.timetable-grid-day-full { display:block; line-height:1.1; }
+.timetable-grid-day-short { display:none; font-size:12px; font-weight:900; }
+.timetable-grid-day-full { font-size:12px; font-weight:900; }
+.timetable-grid-day-date { margin-top:4px; color:var(--muted); font-size:10px; font-weight:700; }
+.timetable-cell-content {
+  width:100%;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  text-align:center;
+}
+.timetable-cell-icon {
+  display:grid;
+  place-items:center;
+  width:18px;
+  height:18px;
+  flex:none;
+  color:var(--text);
+}
+.timetable-cell-icon svg { width:16px; height:16px; }
+.timetable-cell-subject {
+  width:100%;
+  min-width:0;
+  color:var(--text);
+  font-size:13px;
+  line-height:1.05;
+  font-weight:900;
+  overflow-wrap:anywhere;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
+}
+.timetable-cell-subject-short { display:none; }
+.timetable-cell-meta {
+  width:100%;
+  min-width:0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.05;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.timetable-cell-empty {
+  color:var(--muted);
+  opacity:.42;
+  font-size:16px;
+}
+.timetable-assignment-badge {
+  max-width:95%;
+  margin-top:5px;
+  padding:3px 6px;
+  border-radius:999px;
+  background:var(--assignment-color);
+  color:#151815;
+  font-size:8px;
+  line-height:1;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  box-shadow:0 0 10px color-mix(in srgb,var(--assignment-color) 55%,transparent);
+}
+.timetable-template-btn {
+  border-color:color-mix(in srgb,var(--green) 35%,var(--line));
+}
+.school-assignment-trigger {
+  border:1px solid color-mix(in srgb,var(--green) 35%,var(--line));
+  background:color-mix(in srgb,var(--green) 12%,transparent);
+}
+.school-assignment-section {
+  margin-top:24px;
+  padding-top:6px;
+  border-top:1px solid var(--line);
+}
+.compact-heading { margin-bottom:10px; }
+.compact-heading h3 {
+  margin:0;
+  font:400 21px/1.1 Georgia,serif;
+  letter-spacing:-.035em;
+}
+.school-assignment-item {
+  display:grid;
+  grid-template-columns:8px minmax(0,1fr) auto;
+  align-items:center;
+  gap:11px;
+  padding:11px 12px;
+  margin:7px 0;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:var(--surface-2);
+}
+.school-assignment-dot {
+  width:8px;
+  height:34px;
+  border-radius:999px;
+  background:var(--assignment-color);
+  box-shadow:0 0 10px color-mix(in srgb,var(--assignment-color) 55%,transparent);
+}
+.school-assignment-main { min-width:0; display:grid; gap:3px; }
+.school-assignment-main strong { font-size:12px; }
+.school-assignment-main span { color:var(--muted); font-size:11px; }
+.school-assignment-main small { color:var(--text); font-size:10px; }
+.assignment-form-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+.assignment-field { display:grid; gap:7px; color:var(--muted); font-size:11px; font-weight:800; }
+.assignment-field select { width:100%; }
+.assignment-weekbar {
+  display:grid;
+  grid-template-columns:40px minmax(0,1fr) 40px auto;
+  align-items:center;
+  gap:8px;
+  margin:16px 0 12px;
+  padding:8px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--surface-2);
+}
+.assignment-weekbar > div {
+  min-width:0;
+  display:grid;
+  justify-items:center;
+  gap:3px;
+  text-align:center;
+}
+.assignment-weekbar strong {
+  font-size:13px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  max-width:100%;
+}
+.assignment-weekbar span { color:var(--muted); font-size:10px; }
+.assignment-weekbar .icon-btn { width:40px; height:40px; }
+.assignment-help { margin:0 0 11px; }
+.school-assignment-grid {
+  display:grid;
+  grid-template-columns:38px repeat(5,minmax(0,1fr));
+  gap:3px;
+  width:100%;
+}
+.assignment-corner,
+.assignment-day,
+.assignment-period {
+  min-height:32px;
+  display:grid;
+  place-items:center;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:900;
+  text-align:center;
+}
+.assignment-day {
+  padding:5px 2px;
+  color:var(--text);
+}
+.assignment-day small {
+  display:block;
+  margin-top:2px;
+  color:var(--muted);
+  font-size:8px;
+}
+.assignment-cell {
+  min-width:0;
+  min-height:47px;
+  display:grid;
+  place-items:center;
+  gap:2px;
+  padding:5px 3px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:var(--surface-2);
+  color:var(--muted);
+  font:inherit;
+  cursor:pointer;
+  overflow:hidden;
+  transition:background .15s ease,border-color .15s ease,transform .15s ease;
+}
+.assignment-cell:hover { background:var(--surface-3); transform:translateY(-1px); }
+.assignment-cell strong {
+  width:100%;
+  color:var(--text);
+  font-size:9px;
+  font-weight:900;
+  line-height:1.05;
+  text-align:center;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.assignment-cell small {
+  color:var(--muted);
+  font-size:8px;
+  text-align:center;
+  white-space:nowrap;
+}
+.assignment-cell.selected {
+  border-color:var(--green);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--green) 24%,transparent);
+  background:var(--surface-3);
+}
+.assignment-cell.has-existing {
+  box-shadow:inset 0 -3px 0 var(--existing-assignment-color);
+}
+.assignment-selection {
+  min-height:28px;
+  margin:10px 0 5px;
+  color:var(--green);
+  font-size:11px;
+  font-weight:800;
+}
+.assignment-colors {
+  display:grid;
+  gap:8px;
+  margin-top:10px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+}
+.assignment-color-options {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.assignment-color {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 9px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:transparent;
+  color:var(--text);
+  font:inherit;
+  font-size:10px;
+  cursor:pointer;
+}
+.assignment-color .swatch {
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:var(--assignment-color);
+  box-shadow:0 0 8px color-mix(in srgb,var(--assignment-color) 55%,transparent);
+}
+.assignment-color.selected {
+  border-color:var(--assignment-color);
+  background:color-mix(in srgb,var(--assignment-color) 12%,transparent);
+}
+@media (max-width:700px) {
+  .timetable-grid {
+    grid-template-columns:34px repeat(5,minmax(0,1fr));
+    gap:2px;
+    margin-top:10px;
+  }
+  .timetable-grid-header { min-height:50px; padding:5px 2px; border-radius:8px; }
+  .timetable-grid-period,
+  .timetable-grid-cell { min-height:72px; border-radius:8px; }
+  .timetable-grid-period { font-size:10px; }
+  .timetable-grid-day-full { display:none; }
+  .timetable-grid-day-short { display:block; }
+  .timetable-grid-day-date { margin-top:3px; font-size:8px; }
+  .timetable-cell-icon { width:14px; height:14px; }
+  .timetable-cell-icon svg { width:13px; height:13px; }
+  .timetable-cell-subject { font-size:10px; line-height:1.02; }
+  .timetable-cell-meta { font-size:7px; }
+  .timetable-cell-subject-short { display:inline; }
+  .timetable-cell-subject-full { display:none; }
+  .timetable-assignment-badge { margin-top:3px; padding:2px 5px; font-size:7px; }
+  #timetableWrap { overflow:visible; }
+  .timetable-scroll-hint { display:none !important; }
+  .timetable-controls { display:grid; grid-template-columns:1fr 1fr; }
+  .timetable-controls label,
+  .timetable-controls .btn { min-height:42px; }
+  .timetable-controls .timetable-template-btn { grid-column:1 / -1; }
+  .timetable-controls #resetTimetableBtn { grid-column:1 / -1; }
+  .assignment-form-grid { grid-template-columns:1fr; }
+  .assignment-weekbar { grid-template-columns:38px minmax(0,1fr) 38px; }
+  .assignment-weekbar .btn.ghost { grid-column:1 / -1; justify-self:center; }
+  .school-assignment-modal { padding:17px; }
+}
+@media (max-width:380px) {
+  .timetable-grid {
+    grid-template-columns:30px repeat(5,minmax(0,1fr));
+  }
+  .timetable-grid-period,
+  .timetable-grid-cell { min-height:68px; }
+  .timetable-cell-subject { font-size:9px; }
+  .timetable-cell-meta { display:none; }
+}
+@media (min-width:701px) {
+  .timetable-cell-subject-short { display:none; }
+  .timetable-cell-subject-full { display:inline; }
+}
+
+/* v43: deutlichere Noten-Glows */
+.note-circle:not(.empty) {
+  box-shadow:
+    0 0 12px hsl(var(--note-hue,100) 92% 58% / .55),
+    0 0 28px hsl(var(--note-hue,100) 92% 58% / .42),
+    0 8px 18px rgba(0,0,0,.30) !important;
+}
+.subject-card:hover .note-circle:not(.empty),
+.note-circle:not(.empty):focus-visible {
+  box-shadow:
+    0 0 16px hsl(var(--note-hue,100) 94% 60% / .68),
+    0 0 34px hsl(var(--note-hue,100) 94% 60% / .50),
+    0 9px 20px rgba(0,0,0,.34) !important;
+}
+.overall-circle {
+  box-shadow:
+    0 0 12px color-mix(in srgb,var(--green) 55%,transparent),
+    0 0 28px color-mix(in srgb,var(--green) 32%,transparent) !important;
+}
+@media (max-width:700px) {
+  .school-assignment-trigger { grid-column:1 / -1; }
+}
+
+
+/* ===== v45: Anzeige-Fixes, manuelle Stundenanzahl und Noten-Feinschliff ===== */
+
+/* Fachsymbole im Stundenplan müssen immer eine sichtbare UI-Farbe erben, niemals Browser-/SVG-Standard-Schwarz. */
+.timetable-grid-cell,
+.timetable-grid-cell .timetable-cell-icon,
+.timetable-grid-cell .timetable-cell-icon svg,
+.timetable-grid-cell .timetable-cell-icon svg path,
+.timetable-grid-cell .timetable-cell-icon svg circle,
+.timetable-grid-cell .timetable-cell-icon svg ellipse,
+.timetable-subject-icon,
+.timetable-subject-icon svg {
+  color:var(--green) !important;
+  stroke:currentColor !important;
+  fill:none !important;
+}
+.timetable-grid-cell .timetable-cell-icon svg,
+.timetable-subject-icon svg {
+  display:block;
+  width:16px;
+  height:16px;
+}
+
+/* Die Stundenanzahl ist automatisch vorbelegt, bleibt aber jederzeit manuell einstellbar. */
+.period-limit-control {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:36px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.period-limit-control input {
+  width:68px !important;
+  min-width:68px !important;
+  height:38px !important;
+  margin:0 !important;
+  padding:8px 10px !important;
+  border:1px solid var(--line) !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  position:static !important;
+  color:var(--text) !important;
+  background:var(--surface-2) !important;
+  text-align:center;
+  font-weight:800;
+}
+
+/* Kein leerer Platz-/Scrollbereich für die neue kompakte Auswahlansicht. */
+.homework-timetable-grid,
+.school-assignment-grid {
+  overflow:visible !important;
+}
+.homework-picker-grid {
+  width:100%;
+}
+.homework-picker-cell.is-free,
+.assignment-cell.is-free {
+  opacity:.45;
+  cursor:default;
+}
+.homework-picker-cell:disabled,
+.assignment-cell:disabled {
+  cursor:default;
+}
+.timetable-empty-state {
+  min-height:150px;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:6px;
+  padding:24px;
+  border:1px dashed var(--line);
+  border-radius:16px;
+  background:var(--surface-2);
+  color:var(--muted);
+  text-align:center;
+}
+.timetable-empty-state strong {
+  color:var(--text);
+  font-size:14px;
+}
+.timetable-empty-state span {
+  max-width:360px;
+  font-size:11px;
+  line-height:1.4;
+}
+.homework-picker-modal {
+  max-height:92vh;
+}
+
+/* Der Button sitzt jetzt passend rechts beim Block "Tests & Schulaufgaben". */
+.compact-heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.compact-heading > div {
+  min-width:0;
+}
+.school-assignment-trigger {
+  flex:none;
+  white-space:nowrap;
+  margin-left:auto;
+}
+
+/* Noten: Schulaufgaben = kleine Kreise; sonstige Noten = reine farbige Zahlen. */
+.grade-dots {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.grade-number {
+  display:inline;
+  min-width:0;
+  height:auto;
+  padding:0;
+  margin:0;
+  border:0;
+  border-radius:0;
+  background:transparent !important;
+  box-shadow:none !important;
+  transform:none !important;
+  font-size:13px;
+  line-height:1.15;
+  font-weight:900;
+  text-shadow:
+    0 0 5px hsl(var(--note-hue,100) 90% 62% / .34),
+    0 1px 1px rgba(0,0,0,.18);
+}
+.grade-number.note-1 { color:#43a94f !important; }
+.grade-number.note-2 { color:#a7cc45 !important; }
+.grade-number.note-3 { color:#d8b52d !important; }
+.grade-number.note-4 { color:#e68432 !important; }
+.grade-number.note-5 { color:#df574d !important; }
+.grade-number.note-6 { color:#ef5260 !important; }
+.mini-note.is-school {
+  width:30px !important;
+  height:30px !important;
+  border:0 !important;
+  border-radius:50% !important;
+  box-shadow:0 0 9px hsl(var(--note-hue,100) 88% 56% / .34),0 4px 9px rgba(0,0,0,.22) !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+}
+
+/* Bestehende v43-Mobile-Regel darf den Terminbutton nicht wieder über die ganze Breite ziehen. */
+@media(max-width:700px) {
+  .compact-heading {
+    align-items:center;
+  }
+  .school-assignment-trigger {
+    grid-column:auto !important;
+    width:auto;
+    margin-left:auto;
+    padding:7px 9px;
+    font-size:10px;
+  }
+}
+@media(max-width:380px) {
+  .school-assignment-trigger {
+    font-size:9px;
+    padding:6px 8px;
+  }
+}
+
+
+/* ===== v46 final: Notenfarben, Glow und klare Fachdetails ===== */
+.grade-number {
+  display:inline-block;
+  width:auto;
+  min-width:0;
+  height:auto;
+  padding:0;
+  margin:0;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  color:hsl(var(--note-hue,100) 78% 62%) !important;
+  box-shadow:none !important;
+  transform:none !important;
+  transition:none !important;
+  font-size:13px;
+  line-height:1;
+  font-weight:900;
+  text-shadow:
+    0 0 5px hsl(var(--note-hue,100) 92% 60% / .36),
+    0 0 10px hsl(var(--note-hue,100) 92% 60% / .18);
+}
+.grade-number:hover,
+.grade-number:focus,
+.grade-number:active {
+  transform:none !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  filter:none !important;
+}
+
+/* Die gleiche Farbquelle wie bei den Fach-Durchschnittskreisen. */
+.note-circle:not(.empty),
+.mini-note,
+.grade-option {
+  background:hsl(var(--note-hue,100) 82% 48%) !important;
+}
+
+/* Nur Schulaufgaben bleiben als kleine Kreise bestehen. */
+.mini-note.is-school {
+  width:26px !important;
+  height:26px !important;
+  border:0 !important;
+  border-radius:50% !important;
+  box-shadow:
+    0 0 8px hsl(var(--note-hue,100) 90% 58% / .44),
+    0 0 14px hsl(var(--note-hue,100) 90% 58% / .18) !important;
+  font-size:11px !important;
+  font-weight:900 !important;
+  text-shadow:0 0 4px rgba(255,255,255,.18);
+}
+.grade-item > .mini-note.is-school {
+  width:40px !important;
+  height:40px !important;
+  font-size:14px !important;
+}
+
+/* Noch etwas mehr Glow in Übersicht und Fach-Eintragansicht. */
+.subject-card .grade-dots .grade-number {
+  text-shadow:
+    0 0 6px hsl(var(--note-hue,100) 92% 62% / .42),
+    0 0 12px hsl(var(--note-hue,100) 92% 62% / .20);
+}
+.grade-item .grade-number {
+  font-size:17px;
+  text-shadow:
+    0 0 7px hsl(var(--note-hue,100) 92% 62% / .48),
+    0 0 14px hsl(var(--note-hue,100) 92% 62% / .22);
+}
+.grade-item > .mini-note.is-school {
+  box-shadow:
+    0 0 10px hsl(var(--note-hue,100) 92% 60% / .48),
+    0 0 16px hsl(var(--note-hue,100) 92% 60% / .20) !important;
+}
+
+.homework-picker-actions {
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+.homework-picker-actions .btn {
+  min-width:130px;
+}
+
+/* Zusätzliche passende App-Farben */
+.theme-option span {
+  box-shadow:0 0 10px color-mix(in srgb, var(--theme-swatch) 38%, transparent);
+}
+
+@media(max-width:520px){
+  .homework-picker-actions {
+    display:grid;
+    grid-template-columns:1fr 1.25fr;
+  }
+  .homework-picker-actions .btn {
+    min-width:0;
+  }
+}
+
+/* Cloud-Login */
+.settings-modal-actions{display:flex;align-items:center;gap:8px}
+.auth-settings-btn{white-space:nowrap}
+.auth-status-card{margin:14px 0;padding:12px 14px;border:1px solid var(--border,rgba(255,255,255,.12));border-radius:14px;background:var(--surface-2,rgba(255,255,255,.04))}
+.auth-status-card strong{display:block;margin-bottom:4px}
+.auth-status-card small{opacity:.7}
+.auth-modal-card{max-width:430px}
+.auth-field{display:grid;gap:7px;margin:12px 0;font-weight:700;font-size:.9rem}
+.auth-field input{width:100%;box-sizing:border-box}
+.auth-message{margin:10px 0;padding:10px 12px;border-radius:12px;background:rgba(120,180,120,.12)}
+.auth-message.error{background:rgba(220,80,80,.12)}
+.auth-link-btn{display:block;margin:10px auto 0;background:none;border:0;color:inherit;text-decoration:underline;opacity:.75;cursor:pointer}
+.auth-link-btn:hover{opacity:1}
+
+/* SchulApp v47 – Cloud/Auth + aufgeräumte Stundenplan-Navigation */
+.timetable-weekbar {
+  grid-template-columns: minmax(0,1fr) auto;
+}
+.timetable-controls {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-2);
+}
+.timetable-controls #timetablePrevWeek,
+.timetable-controls #timetableNextWeek {
+  min-width: 145px;
+}
+.auth-status-card[data-kind="error"] { border-color: rgba(220,80,80,.35); }
+.auth-status-card .btn { margin-top: 10px; }
+@media(max-width:520px){
+  .timetable-weekbar { grid-template-columns: minmax(0,1fr) auto; }
+  .timetable-weekbar .btn { min-height:42px; }
+  .timetable-controls #timetablePrevWeek,
+  .timetable-controls #timetableNextWeek { flex:1 1 145px; }
+}
+
+/* ===== v47: aufgeräumte Stundenplan-Navigation ===== */
+#stundenplan .timetable-weekbar {
+    grid-template-columns:44px minmax(0,1fr) 44px auto;
+    align-items:center;
+    margin:-4px 0 14px;
+    padding:8px 10px;
+}
+#stundenplan .timetable-week-arrow {
+    width:44px;
+    height:44px;
+    padding:0;
+    display:grid;
+    place-items:center;
+    font-size:28px;
+    line-height:1;
+}
+#stundenplan .timetable-today-btn {
+    min-width:78px;
+    justify-self:end;
+}
+#stundenplan .timetable-controls {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:14px 0 0;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--surface-2);
+}
+#stundenplan .timetable-controls .btn {
+    flex:0 0 auto;
+}
+#stundenplan .timetable-controls .period-limit-control {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-right:auto;
+    color:var(--muted);
+    font-size:12px;
+}
+#stundenplan .timetable-controls input {
+    width:62px;
+    padding:8px;
+}
+#stundenplan #timetableImportStatus {
+    margin:8px 0 0;
+}
+
+@media (max-width:700px) {
+    #stundenplan .timetable-weekbar {
+        grid-template-columns:40px minmax(0,1fr) 40px;
+        gap:6px;
+        padding:8px;
+    }
+    #stundenplan .timetable-week-arrow {
+        width:40px;
+        height:40px;
+    }
+    #stundenplan .timetable-today-btn {
+        grid-column:1 / -1;
+        justify-self:center;
+        min-width:94px;
+        margin-top:2px;
+    }
+    #stundenplan .timetable-controls {
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        align-items:stretch;
+    }
+    #stundenplan .timetable-controls .period-limit-control {
+        grid-column:1 / -1;
+        justify-content:center;
+        margin-right:0;
+    }
+    #stundenplan .timetable-controls .btn {
+        width:100%;
+        min-height:42px;
+    }
+}
+
+@media (max-width:420px) {
+    #stundenplan .timetable-controls {
+        grid-template-columns:1fr;
+    }
+    #stundenplan .timetable-controls .period-limit-control {
+        grid-column:auto;
+    }
+}
+
+/* ===== SchulApp v50: kompakte Seiten, mobile Wochenleiste, Wochenplan-Editor ===== */
+.section-heading-actions{display:flex;align-items:center;gap:8px}
+.cloud-sync-modal-card{max-width:430px;text-align:center;padding:28px}
+.cloud-sync-icon{width:58px;height:58px;margin:0 auto 14px;display:grid;place-items:center;border:1px solid var(--line);border-radius:18px;background:var(--surface-2);color:var(--green);font-size:28px}
+.cloud-sync-modal-card .eyebrow{margin-bottom:7px}
+.cloud-sync-modal-card h3{margin:0;font:400 27px/1.1 Georgia,serif}
+.cloud-sync-text{margin:12px 0 18px;color:var(--muted);font-size:13px;line-height:1.5}
+.cloud-sync-progress{height:5px;border-radius:99px;background:var(--surface-3);overflow:hidden;margin-bottom:18px}
+.cloud-sync-progress span{display:block;height:100%;width:0;border-radius:inherit;background:var(--green);transition:width .35s ease}
+.timetable-template-modal-card{width:min(100%,860px);max-height:92vh}
+.template-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+.template-periods{display:flex;align-items:center;gap:7px;margin-left:auto;color:var(--muted);font-size:12px}
+.template-periods input{width:60px;text-align:center}
+.timetable-template-grid{display:grid;grid-template-columns:42px repeat(5,minmax(0,1fr));gap:3px;overflow:auto;max-height:55vh;padding:2px}
+.template-grid-header,.template-grid-period,.template-grid-cell{min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--surface-2)}
+.template-grid-header{min-height:46px;display:grid;place-items:center;color:var(--text);font-size:11px;font-weight:900}
+.template-grid-period{display:grid;place-items:center;color:var(--muted);font-weight:800;font-size:11px}
+.template-grid-cell{min-height:72px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--text);font:inherit;cursor:pointer;text-align:center}
+.template-grid-cell:hover{border-color:var(--green);background:var(--surface-3)}
+.template-grid-cell.filled{color:var(--green)}
+.template-grid-cell svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7}
+.template-grid-cell strong{font-size:10px;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.template-grid-cell small{font-size:8px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.template-empty{font-size:20px;color:var(--muted);line-height:1}
+.template-modal-actions{margin-top:14px}
+
+@media(max-width:700px){
+  #stundenplan .timetable-weekbar{
+    grid-template-columns:34px minmax(0,1fr) 34px 68px;
+    gap:5px;
+    padding:6px;
+    margin-bottom:10px;
+  }
+  #stundenplan .timetable-week-arrow{width:34px;height:34px;font-size:23px}
+  #stundenplan .timetable-today-btn{
+    grid-column:auto;
+    min-width:0;
+    width:68px;
+    min-height:34px;
+    margin:0;
+    padding:0 8px;
+    font-size:11px;
+  }
+  #stundenplan .timetable-week-center strong{font-size:12px}
+  #stundenplan .timetable-week-center span{display:none}
+  #stundenplan .timetable-controls{grid-template-columns:1fr 1fr}
+  .template-toolbar{display:grid;grid-template-columns:1fr 1fr}
+  .template-periods{grid-column:1/-1;justify-content:center;margin-left:0}
+  .timetable-template-grid{grid-template-columns:34px repeat(5,minmax(48px,1fr));max-height:52vh}
+  .template-grid-cell{min-height:66px}
+}
+@media(max-width:390px){
+  #stundenplan .timetable-weekbar{grid-template-columns:30px minmax(0,1fr) 30px 62px;gap:4px}
+  #stundenplan .timetable-week-arrow{width:30px;height:32px}
+  #stundenplan .timetable-today-btn{width:62px;font-size:10px}
+  #stundenplan .timetable-week-center strong{font-size:11px}
+}
+
+/* ===== v51: stabile Cloud-Auswahl + kompakte mobile KW-Navigation ===== */
+.cloud-choice-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
+.cloud-choice-actions .btn{min-height:44px}
+.cloud-choice-secondary{background:transparent!important;border:1px solid var(--line)!important;color:var(--text)!important}
+.cloud-sync-progress{transition:opacity .2s}
+.cloud-sync-progress:has(+ .cloud-choice-actions){}
+
+/* Die KW-Leiste bleibt auf jedem Handy in EINER Zeile. */
+#stundenplan .timetable-weekbar{
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr) 40px 72px!important;
+  grid-template-rows:1fr!important;
+  gap:5px!important;
+  align-items:center!important;
+  width:100%;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+#stundenplan .timetable-weekbar > .timetable-week-arrow,
+#stundenplan .timetable-weekbar > .timetable-today-btn{
+  grid-column:auto!important;
+  grid-row:1!important;
+  justify-self:stretch!important;
+  margin:0!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:36px!important;
+  height:36px!important;
+  padding:0 5px!important;
+}
+#stundenplan .timetable-week-center{
+  grid-column:2!important;
+  grid-row:1!important;
+  min-width:0!important;
+  width:100%;
+}
+#stundenplan .timetable-week-center strong{
+  font-size:12px!important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#stundenplan .timetable-week-center span{display:none!important}
+
+@media(max-width:390px){
+  #stundenplan .timetable-weekbar{grid-template-columns:32px minmax(0,1fr) 32px 62px!important;gap:4px!important;padding:5px!important}
+  #stundenplan .timetable-weekbar > .timetable-week-arrow,
+  #stundenplan .timetable-weekbar > .timetable-today-btn{height:34px!important;min-height:34px!important;font-size:11px!important}
+  #stundenplan .timetable-week-center strong{font-size:11px!important}
+}
+
+@media(max-width:520px){
+  .cloud-sync-modal-card{width:min(calc(100vw - 28px),430px);padding:22px 18px}
+  .cloud-choice-actions{grid-template-columns:1fr;gap:8px}
+}

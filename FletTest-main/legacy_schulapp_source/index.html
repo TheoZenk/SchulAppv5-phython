@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SchulApp</title>
+  <link rel="stylesheet" href="style.css?v=51">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">S</span><span>SchulApp</span></div>
+    <div class="topbar-actions"><button id="installBtn" class="icon-btn" type="button" aria-label="App installieren">⇧</button><button id="appSettingsBtn" class="icon-btn" type="button" aria-label="Einstellungen öffnen">⚙</button></div>
+  </header>
+
+  <main class="container">
+
+    <!-- NOTEN -->
+    <section id="noten" class="page">
+      <div class="card">
+        <div class="overall-average"><div><p class="eyebrow" id="averageEyebrow">1. HALBJAHR</p><h2>Alle Fächer</h2><span id="gradeCount" class="section-number">0 NOTEN</span></div><span id="overallAvg" class="overall-circle">-</span></div>
+        <div class="section-heading"><div><p class="eyebrow">DEINE FÄCHER</p><h2>Notenübersicht</h2></div><div class="section-heading-actions"><button id="addSubjectBtn" class="icon-btn" type="button" aria-label="Fach hinzufügen">+</button><button id="settingsBtn" class="icon-btn hidden" type="button" aria-label="Noteneinstellungen öffnen">☷</button></div></div>
+        <div id="subjectsList" class="subjects-list"></div>
+        <div class="result card-soft">
+          <div><strong>Schnitt Schulaufgaben:</strong> <span id="avgSchul">-</span></div>
+          <div><strong>Schnitt Andere:</strong> <span id="avgOthers">-</span></div>
+          <div><strong>Endnote:</strong> <span id="finalAvg">-</span></div>
+        </div>
+        <div id="termTabs" class="term-tabs" role="tablist" aria-label="Notenzeitraum"></div>
+      </div>
+    </section>
+
+    <!-- HAUSAUFGABEN -->
+    <section id="hausaufgaben" class="page hidden">
+      <div class="card">
+        <div class="row">
+          <select id="hwFachSelect"></select>
+          <input id="hwText" placeholder="Beschreibung">
+          <input id="hwDatum" type="date">
+          <button id="hwTimetableBtn" class="btn ghost" type="button">Stundenplan auswählen</button>
+          <button class="btn" onclick="addHomework()">Speichern</button>
+        </div>
+        <div id="hwList" class="list"></div>
+        <div class="school-assignment-section">
+          <div class="section-heading compact-heading"><div><p class="eyebrow">TERMINE</p><h3>Tests & Schulaufgaben</h3></div><button id="schoolAssignmentBtn" class="btn ghost school-assignment-trigger" type="button">Schulaufgabentermin</button></div>
+          <div id="schoolAssignmentsList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STUNDENPLAN -->
+    <section id="stundenplan" class="page hidden">
+      <div class="card">
+        <div class="timetable-weekbar">
+          <button id="timetablePrevWeek" class="timetable-week-arrow btn ghost" type="button" aria-label="Vorherige Kalenderwoche">‹</button>
+          <div class="timetable-week-center">
+            <strong id="timetableWeekLabel">KW 40 · 28.09.–02.10.2026</strong>
+            <span id="timetableWeekSub">Montag – Freitag</span>
+          </div>
+          <button id="timetableNextWeek" class="timetable-week-arrow btn ghost" type="button" aria-label="Nächste Kalenderwoche">›</button>
+          <button id="timetableTodayWeek" class="btn ghost timetable-today-btn" type="button">Heute</button>
+        </div>
+        <div id="timetableWrap"></div>
+        <div class="timetable-controls" aria-label="Stundenplan-Aktionen">
+          <label class="period-limit-control">Stunden anzeigen bis <input id="periods" type="number" min="1" max="15" value="6" inputmode="numeric" aria-label="Stundenplan bis Stunde anzeigen"></label>
+          <button id="autoPeriodsBtn" class="btn ghost" type="button">Automatisch</button>
+          <button class="btn ghost" onclick="buildTimetable()">Neu aufbauen</button>
+          <button id="importTimetableBtn" class="btn ghost" type="button">Screenshot importieren</button>
+          <button id="importWeeklyTimetableBtn" class="btn ghost timetable-template-btn" type="button">Als Wochenplan übernehmen</button>
+          <button id="resetTimetableWeekBtn" class="btn ghost danger-btn" type="button">Nur diese Woche löschen</button>
+          <button id="resetTimetableBtn" class="btn ghost danger-btn" type="button">Alle Wochen löschen</button>
+        </div>
+        <input id="timetableImageInput" class="hidden" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp,.heic,.heif,image/heic,image/heif">
+        <input id="timetableWeeklyImageInput" class="hidden" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp,.heic,.heif,image/heic,image/heif">
+        <p id="timetableImportStatus" class="timetable-import-status hidden" role="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="App-Navigation">
+    <button class="nav-item active" data-page="noten" type="button"><span class="nav-icon">◉</span><span>Noten</span></button>
+    <button class="nav-item" data-page="hausaufgaben" type="button"><span class="nav-icon">✓</span><span>Aufgaben</span></button>
+    <button class="nav-item" data-page="stundenplan" type="button"><span class="nav-icon">▦</span><span>Stundenplan</span></button>
+  </nav>
+
+
+  <div id="cloudSyncModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card cloud-sync-modal-card">
+      <div class="cloud-sync-icon">☁</div>
+      <p class="eyebrow">CLOUD-SYNCHRONISIERUNG</p>
+      <h3 id="cloudSyncTitle">Daten synchronisieren</h3>
+      <p id="cloudSyncText" class="cloud-sync-text">Für diesen Account wurden bereits Daten gefunden. Wähle aus, welche Version verwendet werden soll.</p>
+      <div class="cloud-sync-progress"><span id="cloudSyncProgress"></span></div>
+      <div class="cloud-choice-actions">
+        <button id="cloudLoadBtn" class="btn cloud-choice-primary" type="button">Cloud laden</button>
+        <button id="cloudTakeoverBtn" class="btn ghost cloud-choice-secondary" type="button">Cloud übernehmen</button>
+      </div>
+      <button id="cloudSyncContinueBtn" class="btn full-btn hidden" type="button">Fertig</button>
+    </div>
+  </div>
+
+  <div id="timetableTemplateModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card timetable-template-modal-card">
+      <div class="modal-title">
+        <div><p class="eyebrow">WOCHENPLAN</p><h3>Wochenplan bearbeiten</h3></div>
+        <button id="closeTimetableTemplateBtn" class="icon-btn" type="button" aria-label="Schließen">×</button>
+      </div>
+      <p class="settings-hint">Dieser Plan wird nur für Wochen verwendet, in denen noch kein eigener Stundenplan vorhanden ist. Bereits vorhandene Wochen bleiben unverändert.</p>
+      <div class="template-toolbar">
+        <button id="templateImportBtn" class="btn ghost" type="button">Screenshot laden</button>
+        <button id="templateClearBtn" class="btn ghost" type="button">Leeren</button>
+        <label class="template-periods">Stunden <input id="templatePeriods" type="number" min="1" max="15" value="6" inputmode="numeric"></label>
+      </div>
+      <div id="timetableTemplateGrid" class="timetable-template-grid"></div>
+      <p id="timetableTemplateStatus" class="timetable-import-status hidden" role="status"></p>
+      <div class="modal-actions template-modal-actions">
+        <button id="cancelTimetableTemplateBtn" class="btn ghost" type="button">Abbrechen</button>
+        <button id="saveTimetableTemplateBtn" class="btn" type="button">Wochenplan speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <input id="timetableTemplateImageInput" class="hidden" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp,.heic,.heif,image/heic,image/heif">
+
+  <div id="subjectModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card subject-modal-card">
+      <div class="modal-title"><div><p class="eyebrow">NOTEN EINTRAGEN</p><h3 id="subjectModalTitle">Deutsch</h3></div><button class="icon-btn" type="button" onclick="closeSubjectModal()" aria-label="Schließen">×</button></div>
+      <div class="grade-picker" id="gradePicker"></div>
+      <select id="kategorieSelect"></select>
+      <button id="noteInfoBtn" class="btn ghost note-info-btn" type="button" aria-label="Notiz hinzufügen">Notiz +</button>
+      <textarea id="noteInfo" class="note-info hidden" placeholder="Kleine Notiz zu dieser Note..."></textarea>
+      <button id="saveGradeBtn" class="btn full-btn" type="button" onclick="addGrade()">Note speichern</button>
+      <button id="cancelEditBtn" class="btn ghost full-btn hidden" type="button" onclick="cancelGradeEdit()">Bearbeiten abbrechen</button>
+      <div id="subjectGrades" class="list"></div>
+      <button class="delete-subject-btn" type="button" onclick="deleteCurrentSubject()">Fach löschen</button>
+    </div>
+  </div>
+
+  <div id="settingsModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-title"><div><p class="eyebrow">EINSTELLUNGEN</p><h3>SchulApp Einstellungen</h3></div><div class="settings-modal-actions"><button id="authSettingsBtn" class="btn ghost auth-settings-btn" type="button">Anmelden</button><button class="icon-btn" type="button" onclick="closeSettings()" aria-label="Schließen">×</button></div></div>
+      <div id="authStatusCard" class="auth-status-card hidden"></div>
+      <p class="settings-label">Farbe</p><div id="themeOptions" class="theme-options"></div><button id="resetThemeBtn" class="btn ghost reset-theme-btn" type="button">Farbe zurücksetzen</button>
+      <button class="btn full-btn" type="button" onclick="closeSettings()">Fertig</button>
+    </div>
+  </div>
+
+  <div id="authModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card auth-modal-card">
+      <div class="modal-title"><div><p class="eyebrow">CLOUD-SYNCHRONISIERUNG</p><h3 id="authModalTitle">Anmelden</h3></div><button class="icon-btn" type="button" onclick="closeAuthModal()" aria-label="Schließen">×</button></div>
+      <p id="authIntro" class="settings-hint">Melde dich an, um deine Noten, deinen Stundenplan, Hausaufgaben und Einstellungen auf mehreren Geräten zu synchronisieren.</p>
+      <label class="auth-field">E-Mail<input id="authEmail" type="email" autocomplete="email" placeholder="du@example.de"></label>
+      <label class="auth-field">Passwort<input id="authPassword" type="password" autocomplete="current-password" placeholder="Mindestens 6 Zeichen"></label>
+      <p id="authError" class="auth-message error hidden" role="alert"></p>
+      <p id="authMessage" class="auth-message hidden" role="status"></p>
+      <button id="authSubmitBtn" class="btn full-btn" type="button">Anmelden</button>
+      <button id="authToggleBtn" class="btn ghost full-btn" type="button">Noch keinen Account? Account erstellen</button>
+      <button id="authResetBtn" class="auth-link-btn" type="button">Passwort vergessen?</button>
+    </div>
+  </div>
+
+  <div id="notesSettingsModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-title"><div><p class="eyebrow">NOTEN EINSTELLUNGEN</p><h3>Gewichtung & Anzeige</h3></div><button class="icon-btn" type="button" onclick="closeNotesSettings()" aria-label="Schließen">×</button></div>
+      <label class="decimal-setting">Nachkommastellen im Schnitt<select id="decimalPlaces"><option value="0">Keine</option><option value="1">Eine</option><option value="2">Zwei</option></select></label>
+      <label class="decimal-setting">Anzahl Halbjahre<input id="semesterCount" type="number" min="1" max="99" step="1" value="2"></label>
+      <p class="settings-hint">Lege für jede Kategorie fest, wie stark sie zählt.</p>
+      <div id="categoryWeights" class="category-weights"></div>
+      <div class="add-category-row"><input id="newCategoryName" placeholder="Eigene Kategorie, z. B. Referat"><button id="addCategoryBtn" class="btn" type="button">+</button></div>
+      <label class="toggle-row"><input id="schnittPlusSchnitt" type="checkbox"><span><strong>Schnitt plus Schnitt</strong><small>Schulaufgaben-Schnitt und Rest-Schnitt werden gleich gewichtet.</small></span></label>
+      <button class="btn full-btn" type="button" onclick="closeNotesSettings()">Fertig</button>
+    </div>
+  </div>
+
+  <div id="homeworkTimetableModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card homework-picker-modal">
+      <div class="modal-title">
+        <div><p class="eyebrow">HAUSAUFGABE PLANEN</p><h3>Stunde auswählen</h3></div>
+        <button class="icon-btn" type="button" onclick="closeHomeworkTimetable()" aria-label="Schließen">×</button>
+      </div>
+      <div class="assignment-weekbar homework-weekbar">
+        <button id="homeworkPrevWeek" class="icon-btn" type="button" aria-label="Vorherige Woche">‹</button>
+        <div><strong id="homeworkWeekLabel"></strong><span id="homeworkWeekSub"></span></div>
+        <button id="homeworkNextWeek" class="icon-btn" type="button" aria-label="Nächste Woche">›</button>
+        <button id="homeworkTodayWeek" class="btn ghost" type="button">Heute</button>
+      </div>
+      <p class="settings-hint assignment-help">Wähle die belegte Stunde direkt im Wochenraster. Fach und Datum werden automatisch übernommen.</p>
+      <div id="homeworkTimetableGrid" class="homework-timetable-grid"></div>
+      <p id="homeworkSelectionText" class="assignment-selection">Noch keine Stunde ausgewählt.</p>
+      <div class="homework-picker-actions">
+        <button class="btn ghost" type="button" onclick="closeHomeworkTimetable()">Abbrechen</button>
+        <button id="homeworkConfirmBtn" class="btn" type="button">Stunde übernehmen</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="schoolAssignmentModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card school-assignment-modal">
+      <div class="modal-title">
+        <div><p class="eyebrow">SCHULAUFGABENTERMIN</p><h3>Termin eintragen</h3></div>
+        <button class="icon-btn" type="button" onclick="closeSchoolAssignmentModal()" aria-label="Schließen">×</button>
+      </div>
+      <div class="assignment-form-grid">
+        <label class="assignment-field"><span>Art</span>
+          <select id="assignmentType">
+            <option value="schulaufgabe">Schulaufgabe</option>
+            <option value="test">Test</option>
+          </select>
+        </label>
+        <label class="assignment-field"><span>Fach</span>
+          <select id="assignmentSubject"></select>
+        </label>
+      </div>
+      <div class="assignment-weekbar">
+        <button id="assignmentPrevWeek" class="icon-btn" type="button" aria-label="Vorherige Woche">‹</button>
+        <div><strong id="assignmentWeekLabel"></strong><span id="assignmentWeekSub"></span></div>
+        <button id="assignmentNextWeek" class="icon-btn" type="button" aria-label="Nächste Woche">›</button>
+        <button id="assignmentTodayWeek" class="btn ghost" type="button">Heute</button>
+      </div>
+      <p class="settings-hint assignment-help">Wähle die Stunde direkt im Wochenraster. Belegte Stunden übernehmen das Fach automatisch.</p>
+      <div id="schoolAssignmentGrid" class="school-assignment-grid"></div>
+      <p class="assignment-selection" id="assignmentSelectionText">Noch keine Stunde ausgewählt.</p>
+      <div class="assignment-colors">
+        <span>Markierungsfarbe</span>
+        <div id="assignmentColorOptions" class="assignment-color-options" role="radiogroup" aria-label="Markierungsfarbe"></div>
+      </div>
+      <button id="saveSchoolAssignmentBtn" class="btn full-btn" type="button">Termin speichern</button>
+    </div>
+  </div>
+
+  <div id="subjectPickerModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-title"><div><p class="eyebrow">MEINE FÄCHER</p><h3>Fach hinzufügen</h3></div><button class="icon-btn" type="button" onclick="closeSubjectPicker()" aria-label="Schließen">×</button></div>
+      <div id="subjectOptions" class="subject-options"></div>
+      <div id="iconOptions" class="icon-options" aria-label="Symbol auswählen"></div>
+      <div class="custom-subject-row"><button id="customSubjectIcon" class="subject-icon-picker" type="button" aria-label="Symbol ändern">✒<span>✎</span></button><input id="customSubjectName" placeholder="Eigenen Namen eingeben"><button id="addCustomSubjectBtn" class="btn" type="button">+</button></div>
+    </div>
+  </div>
+
+  <div id="renameModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-title"><div><p class="eyebrow">FACH BEARBEITEN</p><h3>Fach umbenennen</h3></div><button class="icon-btn" type="button" onclick="closeRenameModal()" aria-label="Schließen">×</button></div>
+      <input id="renameSubjectInput" placeholder="Neuer Fachname">
+      <label class="subject-weight-setting">
+        <span class="subject-weight-head"><span>Gewichtung des gesamten Faches</span><strong id="subjectWeightValue">1×</strong></span>
+        <input id="subjectWeightRange" type="range" min="0" max="3" step="0.1" value="1">
+        <span class="subject-weight-scale"><small>0×</small><small>1×</small><small>2×</small><small>3×</small></span>
+        <small class="settings-hint">Bestimmt, wie stark dieses Fach in den Gesamtschnitt eingeht. Standard: 1×.</small>
+      </label>
+      <button class="btn full-btn" type="button" onclick="saveRenamedSubject()">Speichern</button>
+    </div>
+  </div>
+
+  <!-- Modal für Stundenplan Auswahl -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <h3>Stunde bearbeiten</h3>
+      <select id="modalSubject"></select>
+      <div class="timetable-details">
+        <input id="modalRoom" placeholder="Raum, z. B. B204">
+        <input id="modalTeacher" placeholder="Lehrer/in">
+      </div>
+      <div class="modal-actions">
+        <button class="btn ghost" onclick="closeModal()">Abbrechen</button>
+        <button class="btn" onclick="confirmModal()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+  <script src="app.js?v=51"></script>
+</body>
+</html>
